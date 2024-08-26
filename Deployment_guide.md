@@ -10,11 +10,7 @@ wget -O .env https://raw.githubusercontent.com/chatwoot/chatwoot/develop/.env.ex
 ```
 wget -O docker-compose.yaml https://raw.githubusercontent.com/chatwoot/chatwoot/develop/docker-compose.production.yaml
 ```
-### Step-4: Download `rails.sh`
-```
-wget -O rails.sh https://raw.githubusercontent.com/chatwoot/chatwoot/develop/docker/entrypoints/rails.sh
-```
-### Step-5: Open `.env` file in a editor and Modify it as following
+### Step-4: Open `.env` file in a editor and Modify it as following
 ```shell
 # Learn about the various environment variables at
 # https://www.chatwoot.com/docs/self-hosted/configuration/environment-variables/#rails-production-variables
@@ -276,7 +272,7 @@ AZURE_APP_SECRET=
 # contact_inboxes with no conversation older than 90 days will be removed
 # REMOVE_STALE_CONTACT_INBOX_JOB_STATUS=false
 ```
-### Step-6: Open `docker-compose.yaml` file in a editor and Modify it as following:-
+### Step-5: Open `docker-compose.yaml` file in a editor and Modify it as following:-
 
 ```shell
 services:
@@ -297,7 +293,7 @@ services:
       - NODE_ENV=production
       - RAILS_ENV=production
       - INSTALLATION_ENV=docker
-    entrypoint: ./rails.sh
+    entrypoint: docker/entrypoints/rails.sh
     # command: ['bundle', 'exec', 'rails', 's', '-p', '3000', '-b', '0.0.0.0']
     command: >
       /bin/sh -c "bundle exec rails db:chatwoot_prepare && bundle exec rails s -p 3000 -b 0.0.0.0"
@@ -338,16 +334,16 @@ services:
     ports:
       - '127.0.0.1:6379:6379'
 ```
-### Step-7: Create a repository named`chatwoot_coolify` on Github and push the local changes into it
+### Step-6: Create a repository named`chatwoot_coolify` on Github and push the local changes into it
 - `git init`
 - `git remote add origin https://github.com/SajidK25/chatwoot_coolify.git`
 - `git add -A`
 - `git commit -m 'local deployment okay'`
 - `git push origin master`
 
-## Step-8: Chatwoot Deployment Process on Coolify
+## Step-7: Chatwoot Deployment Process on Coolify
 
-### Step-8a: Add Docker registry
+### Step-7a: Add Docker registry
 
 1. Go to `settings`.
 2. Click `Docker registries` tab.
@@ -363,43 +359,43 @@ services:
 ![002.CoolifyDockerRegistries.png](./images/002.CoolifyDockerRegistries.png)
 
 
-### Step-8b: Create New Resource
+### Step-7b: Create New Resource
 1. Go to Dashboard and click `Create New Resource >> Application`.
 
 ![003.CoolifyDashBoardCreateNewResource.png](./images/003.CoolifyDashBoardCreateNewResource.png)
 
-### Step-8c: Select an Application source
+### Step-7c: Select an Application source
 1. Public repository from the git: `https://github.com/SajidK25/chatwoot_coolify/blob/master`.
 2. Click on the `Load Repository` Button
 
 ![004.CoolifyLoadRepo.png](./images/004.CoolifyLoadRepo.png)
 
-### Step-8d: Select a Build Pack
+### Step-7d: Select a Build Pack
 1. Select a Build Pack `Docker Compose`.
 
 ![005.CoolifySelectABuildPack.png](./images/005.CoolifySelectABuildPack.png)
 
-### Step-8e: Configuration General Tab
+### Step-7e: Configuration General Tab
 1. Docker Repository: `Select Your previously created Docker Repository`.
 2. Name: `Chatwoot-app`
 
 ![006.ConfigGeneral.png](./images/006.ConfigGeneral.png)
 
-### Step-8f: Configuration Stack `Rails`
+### Step-7f: Configuration Stack `Rails`
 1. URL (FQDN): `https://chatwoot.example.com`.
 2. Port: `9001`.
 3. Keep the other services unchanged.
 
 ![007.StackRails.png](images/007.StackRails.png)
 
-### Step-8g: Configuration Stack `Rails`
+### Step-7g: Configuration Stack `Rails`
 1. Copy all environment variables from given `.env` file.
 2. Paste on `Paste .env file` text area.
 3. Click on button `Add Secrets in batch`.
 
 ![009.ClickOnTheDeployButton.png](images/009.ClickOnTheDeployButton.png)
 
-### Step-8h: Deployment
+### Step-7h: Deployment
 1. Click on the top right corner's `Deploy` button.
 
 ![009.ClickOnTheDeployButton.png](images/009.ClickOnTheDeployButton.png)
